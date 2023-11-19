@@ -185,11 +185,11 @@ return odwrotnaM;
 
 void main()
 {
- srand( time( NULL ) ); // pozwala na zmienianie "losowych" liczb
+srand( time( NULL ) ); // pozwala na zmienianie "losowych" liczb
 macierz M1 = utworz_macierz(3,3);
 macierz M2 = utworz_macierz(3,3);
 macierz M3 = utworz_macierz(3,3);
-/*
+
 wpisz(M1);
 wypisz_macierz(M1);
 printf("\n");
@@ -204,17 +204,17 @@ free(M1.elementy);
 free(M2.elementy);
 free(M3.elementy);
 printf("\n");
-*/
- // wpisywanie wlasnych wartosci
+
+
 macierz M4 = utworz_macierz(3,3);
-float dane1[] = {1 ,2, 1, 0 , 3 , 2,1 ,3 ,0 };
-//wpisz_samemu(M4, dane1);
 wpisz(M4);
+printf("macierz M4\n");
 wypisz_macierz(M4);
 printf("wyznacznik macierzy M4 \n");
 printf("%.2f" , wyznacznik(M4));
 printf("\n");
 macierz M5 = utworz_macierz(3,3);
 M5 = odwrotna(M4);
+printf("odwroc macierz M5\n");
 wypisz_macierz(M5);
 }
