@@ -135,7 +135,7 @@ macierz dopelnienie = utworz_macierz(M.wiersze -1 , M.kolumny -1 );//macierz dop
         return dopelnienie;
 }
 */
-macierz dopelnienie(macierz M , int i , int j )
+macierz dopelnienie_macierzy(macierz M , int i , int j )
 {
 macierz dopelnienie = utworz_macierz(M.wiersze -1 , M.kolumny -1 );//macierz dopelnien
    dopelnienie.wiersze = M.wiersze -1 ;
@@ -173,7 +173,7 @@ if(wyznacznik(M) == 0)
         for ( int j = 0 ; j < M.kolumny ; j++)
         {
             macierz podM = utworz_macierz(M.wiersze -1 , M.kolumny -1  );//macierz odwrotna
-            podM = dopelnienie(M , i , j);
+            podM = dopelnienie_macierzy(M , i , j);
             float  podMdet = wyznacznik(podM);
             float znak = pow(-1,1+i+j+1);
             odwrotnaM.elementy[j * M.kolumny + i] = znak * podMdet / wyznacznik(M);
