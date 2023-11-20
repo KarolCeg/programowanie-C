@@ -111,30 +111,6 @@ float wyznacznik (macierz M)
     }
     return det;
 }
-/*
-
-macierz dopelnienie(macierz M , int i , int j )
-{
-macierz dopelnienie = utworz_macierz(M.wiersze -1 , M.kolumny -1 );//macierz dopelnien
-   dopelnienie.wiersze = M.wiersze -1 ;
-    dopelnienie.kolumny = M.kolumny -1 ;
-  for (int i = 0 ;  i < M.wiersze ; i++)
-    {
-       int pozycja = 0 ;
-    for( int w = 1 ; w < M.wiersze  ; w++)
-        {
-            for( int k = 0 ; k < M.kolumny; k++) 
-            {
-                if(k != i) 
-                {
-                   dopelnienie.elementy[pozycja++] = M.elementy[w * M.kolumny + k];
-                }
-            }
-        }
-    }
-        return dopelnienie;
-}
-*/
 macierz dopelnienie_macierzy(macierz M , int i , int j )
 {
 macierz dopelnienie = utworz_macierz(M.wiersze -1 , M.kolumny -1 );//macierz dopelnien
