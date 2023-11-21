@@ -15,7 +15,7 @@ macierz utworz_macierz(int wiersze , int kolumny )
 }
 
 
-void wypisz_macierz(macierz M)
+void wypisz_macierz(macierz M) //wypisywanie macierzy
 {
     for(int i = 0; i < M.wiersze ; i++)
     {
@@ -26,7 +26,7 @@ void wypisz_macierz(macierz M)
 }
 
 
-void wpisz(macierz M)
+void wpisz(macierz M) //wpisywanie wartosci do macierzy
 {
 for(int i = 0 ; i < M.wiersze ; i++)
     for(int j = 0 ; j < M.kolumny ; j++)
@@ -36,7 +36,7 @@ for(int i = 0 ; i < M.wiersze ; i++)
 }
 
 
-void wpisz_samemu(macierz M, float *dane)
+void wpisz_samemu(macierz M, float *dane)//wpisywanie wlasnych wartosci
 {
 for(int i = 0 ; i < M.wiersze ; i++)
     for(int j = 0 ; j < M.kolumny ; j++)
@@ -46,7 +46,7 @@ for(int i = 0 ; i < M.wiersze ; i++)
 }
 
 
-macierz iloczyn( macierz M1 , macierz M2)
+macierz iloczyn( macierz M1 , macierz M2) //iloczyn macierzy
 {
 macierz M3 = utworz_macierz(M1.wiersze , M2. kolumny);
 if(M1.kolumny != M2.wiersze)
@@ -70,7 +70,7 @@ for(int i = 0 ; i < M3.wiersze ; i++)
 }   
 
 
-float wyznacznik (macierz M)
+float wyznacznik (macierz M) //wyznacznik macierzy
 {
     float det = 0;
     if(M.wiersze != M.kolumny) //macierz nie kwadratowa
@@ -111,7 +111,7 @@ float wyznacznik (macierz M)
     }
     return det;
 }
-macierz dopelnienie_macierzy(macierz M , int i , int j )
+macierz dopelnienie_macierzy(macierz M , int i , int j ) //dopelnienie macierzy
 {
 macierz dopelnienie = utworz_macierz(M.wiersze -1 , M.kolumny -1 );//macierz dopelnien
    dopelnienie.wiersze = M.wiersze -1 ;
@@ -129,7 +129,7 @@ macierz dopelnienie = utworz_macierz(M.wiersze -1 , M.kolumny -1 );//macierz dop
         }
         return dopelnienie;
 }
-macierz odwrotna(macierz M)
+macierz odwrotna(macierz M) //macierz odwrotna
 {
 if(M.wiersze != M.kolumny)
 {
@@ -161,15 +161,17 @@ return odwrotnaM;
 
 void main()
 {
-srand( time( NULL ) ); // pozwala na zmienianie "losowych" liczb
+srand( time( NULL ) ); // pozwala na zmienianie "losowych" liczb w macierzy
 macierz M1 = utworz_macierz(3,3);
 macierz M2 = utworz_macierz(3,3);
 macierz M3 = utworz_macierz(3,3);
 
 wpisz(M1);
+printf("macierz M1\n");
 wypisz_macierz(M1);
 printf("\n");
 wpisz(M2);
+printf("macierz M2\n");
 wypisz_macierz(M2);
 printf("\n");
 printf("iloczyn Macierzy M1 * M2\n");
@@ -182,15 +184,19 @@ free(M3.elementy);
 printf("\n");
 
 
-macierz M4 = utworz_macierz(3,3);
+macierz M4 = utworz_macierz(6,6);
 wpisz(M4);
 printf("macierz M4\n");
 wypisz_macierz(M4);
 printf("wyznacznik macierzy M4 \n");
 printf("%.2f" , wyznacznik(M4));
 printf("\n");
-macierz M5 = utworz_macierz(3,3);
+macierz M5 = utworz_macierz(6,6);
 M5 = odwrotna(M4);
-printf("odwroc macierz M5\n");
+printf("macierz odwrotna dla M4(M5)\n");
 wypisz_macierz(M5);
+printf("iloczyn Macierzy M4 * M5\n");
+macierz M6 = utworz_macierz(6,6);
+M6 = iloczyn(M4 , M5);
+wypisz_macierz(M6);
 }
