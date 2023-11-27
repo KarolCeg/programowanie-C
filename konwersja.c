@@ -18,3 +18,4 @@ void main()
     char wiersz  , kolumna ;   
     printf("%d", konwersja(kolumna,wiersz,13));
 }
+dwucyfrowe cyfry w ascii
