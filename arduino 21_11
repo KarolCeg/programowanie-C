@@ -1,0 +1,141 @@
+#define TRIG 7
+#define ECHO 12
+#define LED_3 6
+#define LED_2 5
+#define LED_1 3
+#define BUTTON 2
+#define PIEZO 11
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(BUTTON, INPUT_PULLUP);
+  pinMode(LED_1, OUTPUT);
+  pinMode(LED_2, OUTPUT);
+  pinMode(LED_3, OUTPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(PIEZO, OUTPUT);
+  pinMode(ECHO, INPUT);
+  
+  attachInterrupt(digitalPinToInterrupt(BUTTON), buttonIt, FALLING);
+  Serial.begin(9600);
+}
+
+unsigned long tof;
+
+uint8_t mode = 1;
+
+void buttonIt(){
+  mode++;
+  mode = mode%4;
+  delay(50);
+}
+
+
+uint8_t distMeas(){
+  digitalWrite(TRIG,0);
+  delayMicroseconds(5);
+  digitalWrite(TRIG, 1);
+  delayMicroseconds(10);
+  tof = pulseIn(ECHO, 1);
+  //Serial.println(tof/58);
+  return tof/58; //odległość w cm
+}
+
+uint8_t dist = 0;
+uint8_t pos = 0;
+
+void pkt1(){
+  
+  //Serial.println(pos);  
+  switch (pos){
+  case 3:
+  digitalWrite(LED_1 ,0);
+  digitalWrite(LED_2 ,0);
+  digitalWrite(LED_3 ,0);
+  break;
+  case 2:
+  digitalWrite(LED_1 ,1);
+  digitalWrite(LED_2 ,0);
+  digitalWrite(LED_3 ,0);
+  break;
+  case 1:
+  digitalWrite(LED_1 ,1);
+  digitalWrite(LED_2 ,1);
+  digitalWrite(LED_3 ,0);
+  break;
+  case 0:
+  digitalWrite(LED_1 ,1);
+  digitalWrite(LED_2 ,1);
+  digitalWrite(LED_3 ,1);
+  break;
+  }
+}
+void pkt2(){
+  switch(pos){
+    case 3:
+    digitalWrite(LED_1 ,0);
+    digitalWrite(LED_2 ,0);
+    digitalWrite(LED_3 ,0);
+    break;
+    case 2:
+    analogWrite(LED_1, map(dist%10,30, 20, 0, 255));
+    digitalWrite(LED_2 ,0);
+    digitalWrite(LED_3 ,0);
+    break;
+    case 1:
+    digitalWrite(LED_1 ,1);
+    analogWrite(LED_2, map(dist%10,20, 10, 0, 255));
+    digitalWrite(LED_3 ,0);
+    break;
+    case 0:
+    digitalWrite(LED_1 ,1);
+    analogWrite(LED_3, map(dist%10,10, 0, 0, 255));
+    digitalWrite(LED_2 ,1);
+    break;
+    
+  }
+}
+void pkt3(){
+  
+  //tone(PIEZO, dist);
+  
+    
+    analogWrite(PIEZO, 127);
+    delay(dist*3);
+    analogWrite(PIEZO, 0);
+    delay(dist*3);
+    
+    
+    
+    
+}
+void pkt4(){
+  tone(PIEZO, 1000-dist*10);
+}
+
+void loop() {
+
+  dist = distMeas();
+  pos = constrain(dist, 0, 30);
+  pos = map(pos, 0, 40, 0, 4);
+  Serial.println(mode);
+  switch(mode){
+    case 0:
+    pkt1();
+    break;
+    case 1:
+    pkt2();
+    break;
+    case 2:
+    pkt3();
+    break;    
+    case 3:
+    pkt4();
+    break;    
+  }
+  
+
+
+}
